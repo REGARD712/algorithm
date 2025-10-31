@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/maxArea.iml" filepath="$PROJECT_DIR$/maxArea.iml" />
+      <module fileurl="file://$PROJECT_DIR$/twoSum.iml" filepath="$PROJECT_DIR$/twoSum.iml" />
     </modules>
   </component>
 </project>
