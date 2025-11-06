@@ -3,7 +3,7 @@ public class MinOperations {
         int n = nums.length, left = 0, right = 0;
         int sum = 0, target = 0, len = -1;
 
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < n; i++) {
             target += nums[i];
         }
         target -= x;
