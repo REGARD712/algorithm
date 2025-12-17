@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class SortArray {
     public int[] sortArray(int[] nums) {
+        // 利用快排原理解决
         quickSort(nums, 0, nums.length - 1);
         return nums;
     }
