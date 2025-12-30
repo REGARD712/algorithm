@@ -22,9 +22,9 @@ public class InorderNon_Recursive {
                 cur = cur.left;
             }
             // 寻找右节点
-            TreeNode top = stack.pop();
+            cur = stack.pop();
             ret.add(cur.val);
-            cur = top.right;
+            cur = cur.right;
         }
 
         return ret;
