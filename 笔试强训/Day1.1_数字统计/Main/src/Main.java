@@ -11,7 +11,8 @@ public class Main {
         for (int i = l; i <= r; i++) {
             int temp = i;
             while (temp != 0) {
-                if ((temp % 10) == 2) count++;
+                int num = temp % 10;
+                if (num == 2) count++;
                 temp /= 10;
             }
         }
