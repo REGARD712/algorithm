@@ -30,6 +30,7 @@ public class SolveNQueens {
             for (int i = 0; i < n; i++)
                 temp.add(new String(path[i]));
             ret.add(new ArrayList<>(temp));
+            return;
         }
 
         for (int col = 0; col < n; col++) {
