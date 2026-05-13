@@ -5,6 +5,53 @@ public class PacificAtlantic {
     int[][] heights;
     int m, n;
     List<List<Integer>> ret;
+    int[] dx = {0, 0, -1, 1};
+    int[] dy = {-1, 1, 0, 0};
+
+    public List<List<Integer>> pacificAtlantic(int[][] givenHeights) {
+        heights = givenHeights; m = heights.length; n = heights[0].length;
+        boolean[][] pacificVisit = new boolean[m][n];
+        boolean[][] atlanticVisit = new boolean[m][n];
+        ret = new ArrayList<>();
+
+        // 1.先扫描太平洋岸边的
+        for (int j = 0; j < n; j++) dfs(pacificVisit, 0, j);
+        for (int i = 0; i < m; i++) dfs(pacificVisit, i, 0);
+        // 2.然后扫描大西洋岸边的
+        for (int j = 0; j < n; j++) dfs(atlanticVisit, m-1, j);
+        for (int i = 0; i < m; i++) dfs(atlanticVisit, i, n-1);
+
+        // 3.找到流向两个海洋的点
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (pacificVisit[i][j] && atlanticVisit[i][j]) {
+                    List<Integer> path = new ArrayList<>();
+                    path.add(i); path.add(j);
+                    ret.add(new ArrayList<>(path));
+                }
+            }
+        }
+        return ret;
+    }
+
+    public void dfs(boolean[][] visit, int row, int col) {
+        visit[row][col] = true;
+
+        for (int k = 0; k < 4; k++) {
+            int x = row + dx[k], y = col + dy[k];
+            if (x >= 0 && x < m && y >= 0 && y < n) {
+                if (!visit[x][y] && heights[x][y] >= heights[row][col]) {
+                    dfs(visit, x, y);
+                }
+            }
+        }
+    }
+}
+
+class PacificAtlantic2 {
+    int[][] heights;
+    int m, n;
+    List<List<Integer>> ret;
     List<Integer> path;
     int[] dx = {0, 0, -1, 1};
     int[] dy = {-1, 1, 0, 0};
