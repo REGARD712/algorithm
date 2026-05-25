@@ -1,32 +1,24 @@
+import java.util.Arrays;
+
 public class SortColors {
     public void sortColors(int[] nums) {
-        int zeroes = -1, twos = nums.length;
-        for (int i = 0; i < twos; ) {
-            if (nums[i] == 0) swap(nums, ++ zeroes, i ++);
-            else if (nums[i] == 2) swap(nums, -- twos, i);
-            else i ++;
+        int left = -1, mid = 0, right = nums.length;
+
+        while (mid < right) {
+            if (nums[mid] == 0) {
+                // 将当前的mid的值与left+1的值交换
+                // 交换后mid往后走一步
+                swap(nums, mid++, ++left);
+            } else if (nums[mid] == 2) {
+                // 将当前的mid的值与right-1的值交换
+                swap(nums, mid, --right);
+            } else if (nums[mid] == 1) mid++;
         }
     }
 
-    public void sortColors1(int[] nums) {
-        int n = nums.length;
-        int zeroes = -1, twos = n;
-        for (int i = 0; i < n; ) {
-            if (i == twos) break;
-            if (nums[i] == 0) {
-                swap(nums, ++ zeroes, i ++);
-            }
-            else if (nums[i] == 2) {
-                swap(nums, -- twos, i);
-            } else {
-                i ++;
-            }
-        }
-    }
-
-    private static void swap(int[] nums, int x, int y) {
-        int temp = nums[x];
-        nums[x] = nums[y];
-        nums[y] = temp;
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
