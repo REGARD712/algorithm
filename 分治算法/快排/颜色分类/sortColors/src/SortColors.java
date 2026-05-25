@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class SortColors {
     public void sortColors(int[] nums) {
         int left = -1, mid = 0, right = nums.length;
