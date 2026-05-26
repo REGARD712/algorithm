@@ -2,33 +2,38 @@ import java.util.Random;
 
 public class SortArray {
     public int[] sortArray(int[] nums) {
-        // 利用快排原理解决
-        quickSort(nums, 0, nums.length - 1);
+        quickSort(nums, 0, nums.length-1);
         return nums;
     }
 
-    public void quickSort(int[] nums, int l, int r) {
-        // 递归结束条件
-        if (l >= r) return;
-
-        int i = l, left = l - 1, right = r + 1;
-        int key = nums[new Random().nextInt(r - l + 1) + l];
-
-        // 划分三个区间
-        while (i < right) {
-            if (nums[i] < key) swap(nums, ++ left, i ++);
-            else if (nums[i] > key) swap(nums, -- right, i);
-            else i ++;
+    public void quickSort(int[] nums, int start, int end) {
+        // 出口
+        if (start >= end) {
+            return;
         }
 
-        // 递归：[l, left] [left + 1, right - 1] [right, r]
-        quickSort(nums, l, left);
-        quickSort(nums, right, r);
+        // 随机选择基准值
+        int key = nums[new Random().nextInt(end-start+1) + start];
+
+        // 三指针法将数组划分为三块：左边小于key、中间等于key、右边大于key
+        int left = start-1, i = start, right = end+1;
+        while (i < right) {
+            if (nums[i] < key) {
+                // 将i位置的值与left-1的值交换
+                swap(nums, i++, ++left);
+            } else if (nums[i] > key) {
+                swap(nums, i, --right);
+            } else i++;
+        }
+
+        // 递归左右子树
+        quickSort(nums, start, left);
+        quickSort(nums, right, end);
     }
 
-    private void swap(int[] nums, int x, int y) {
-        int temp = nums[x];
-        nums[x] = nums[y];
-        nums[y] = temp;
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
