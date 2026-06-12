@@ -8,7 +8,7 @@ class ListNode {
 }
 
 public class ReverseList {
-    public ListNode reverseList(ListNode head) {
+    public ListNode reverseList(ListNode head) { // 虚拟头节点 + 头插法
         ListNode newHead = new ListNode(); // 虚拟头节点
         ListNode curNext = new ListNode(); // 用来标记下一个节点
 
