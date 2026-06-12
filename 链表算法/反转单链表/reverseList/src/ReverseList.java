@@ -13,7 +13,7 @@ public class ReverseList {
         ListNode curNext = new ListNode(); // 用来标记下一个节点
 
         ListNode cur = head;
-        // 遍历原链表并头插
+        // 遍历原链表并头插到新链表
         while (cur != null) {
             curNext = cur.next;
             cur.next = newHead.next;
