@@ -1,24 +1,42 @@
 class ListNode {
     public int val;
     public ListNode next;
+
+    public ListNode() {
+    }
+
+    public ListNode(int val) {
+        this.val = val;
+    }
+
+    public ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
 }
 
 public class RemoveElements {
-    // 迭代法
     public ListNode removeElements(ListNode head, int val) {
+        // 双指针法
         if (head == null) return head;
 
-        ListNode pre = head;
-        ListNode cur = pre.next;
+        ListNode slow = head;
+        ListNode fast = head.next;
 
-        // 主体
-        while (cur != null) {
-            if (cur.val != val) pre = cur;
-            else pre.next = cur.next;
-            cur = cur.next;
+        while (fast != null) {
+            if (fast.val == val) {
+                fast = fast.next;
+                slow.next = fast;
+            } else {
+                fast = fast.next;
+                slow = slow.next;
+            }
         }
 
-        if (head.val == val) return head.next;
-        else return head;
+        if (head.val == val) {
+            return head.next;
+        }
+
+        return head;
     }
 }
