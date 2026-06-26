@@ -47,6 +47,65 @@ public class MergeKLists {
     }
 }
 
+// 分治归并法
+class MergeKLists2 {
+    public ListNode mergeKLists(ListNode[] lists) {
+        // 归并法
+        return merge(lists, 0, lists.length - 1);
+    }
+
+    public ListNode merge(ListNode[] lists, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+        if (left == right) {
+            return lists[left];
+        }
+
+        // 将数组分为两部分
+        int mid = (left + right) / 2;
+        // [left, mid][mid + 1, right]
+
+        // 递归处理两部分
+        ListNode leftList = merge(lists, left, mid);
+        ListNode rightList = merge(lists, mid+1, right);
+
+        // 合并两个有序链表并返回
+        return mergeTwoLists(leftList, rightList);
+    }
+
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+
+        // 合并链表
+        ListNode head = new ListNode(0), tail = head;
+        ListNode ptr1 = l1, ptr2 = l2;
+        while (ptr1 != null && ptr2 != null) {
+            if (ptr1.val <= ptr2.val) {
+                tail.next = ptr1;
+                ptr1 = ptr1.next;
+            } else {
+                tail.next = ptr2;
+                ptr2 = ptr2.next;
+            }
+            tail = tail.next;
+        }
+        if (ptr1 != null) {
+            tail.next = ptr1;
+        }
+        if (ptr2 != null) {
+            tail.next = ptr2;
+        }
+
+        return head.next;
+    }
+}
+
 //public class MergeKLists {
 //    public ListNode mergeKLists(ListNode[] lists) {
 //        if (lists.length == 0 || lists[0] == null) {
