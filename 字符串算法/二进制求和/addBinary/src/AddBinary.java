@@ -20,6 +20,7 @@ public class AddBinary {
     }
 }
 
+// 初版
 class AddBinary2 {
     public String addBinary(String a, String b) {
         int ptr1 = a.length()-1, ptr2 = b.length()-1, temp = 0;
