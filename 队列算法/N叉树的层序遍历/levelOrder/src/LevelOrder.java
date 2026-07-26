@@ -31,7 +31,6 @@ public class LevelOrder {
             size = queue.size();
             List<Integer> level = new ArrayList<>();
             while (size-- != 0) {
-                level = new ArrayList<>();
                 // 取出队头元素
                 Node top = queue.poll();
                 // 添加到结果
