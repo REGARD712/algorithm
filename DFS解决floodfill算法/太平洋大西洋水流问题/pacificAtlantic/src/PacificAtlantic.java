@@ -1,7 +1,66 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PacificAtlantic {
+    int[][] heights;
+    int m, n;
+    List<List<Integer>> ret;
+    boolean[][] pacificVisit;
+    boolean[][] atlanticVisit;
+    int[] dx = {0, 0, -1, 1};
+    int[] dy = {-1, 1, 0, 0};
+
+    public List<List<Integer>> pacificAtlantic(int[][] givenHeights) {
+        // 初始化
+        heights = givenHeights;
+        m = heights.length;
+        n = heights[0].length;
+        ret = new ArrayList<>();
+        pacificVisit = new boolean[m][n];
+        atlanticVisit = new boolean[m][n];
+
+        // 先搜索太平洋和大西洋沿岸,将所有能逆流而上的方格通过dfs标记
+        for (int j = 0; j < n; j++) {
+            dfs(pacificVisit, 0, j);
+        }
+        for (int i = 0; i < m; i++) {
+            dfs(pacificVisit, i, 0);
+        }
+        for (int j = 0; j < n; j++) {
+            dfs(atlanticVisit, m-1, j);
+        }
+        for (int i = 0; i < m; i++) {
+            dfs(atlanticVisit, i, n-1);
+        }
+
+        // 然后遍历整个矩阵，找出两个标记重叠的方格
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (pacificVisit[i][j] && atlanticVisit[i][j]) {
+                    ret.add(new ArrayList<>(Arrays.asList(i, j)));
+                }
+            }
+        }
+
+        return ret;
+    }
+
+    public void dfs (boolean[][] visit, int row, int col) {
+        visit[row][col] = true;
+
+        for (int k = 0; k < 4; k++) {
+            int x = row + dx[k], y = col + dy[k];
+            if (x >= 0 && x < m && y >= 0 && y < n) {
+                if (heights[x][y] >= heights[row][col] && !visit[x][y]) {
+                    dfs(visit, x, y);
+                }
+            }
+        }
+    }
+}
+
+class PacificAtlantic2 {
     int[][] heights;
     int m, n;
     List<List<Integer>> ret;
@@ -48,7 +107,7 @@ public class PacificAtlantic {
     }
 }
 
-class PacificAtlantic2 {
+class PacificAtlantic3 {
     int[][] heights;
     int m, n;
     List<List<Integer>> ret;
