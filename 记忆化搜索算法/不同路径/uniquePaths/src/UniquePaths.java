@@ -17,11 +17,11 @@ public class UniquePaths {
 
         // 非法情况(下标从1开始)
         if (row == 0 || col == 0) {
-
             return 0;
         }
         // 位于起始位置
         if (row == 1 && col == 1) {
+            memo[row][col] = 1;
             return 1;
         }
 
