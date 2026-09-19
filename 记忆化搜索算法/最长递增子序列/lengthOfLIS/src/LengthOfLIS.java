@@ -1,35 +1,41 @@
 public class LengthOfLIS {
-    int[] nums, memo;
+    int[] nums;
     int n;
+    int[] memo; // 记忆数组
 
     public int lengthOfLIS(int[] givenNums) {
-        nums = givenNums; n = nums.length;
-        memo = new int[n]; // 备忘录
+        // 初始化
+        nums = givenNums;
+        n = nums.length;
+        memo = new int[n];
+        int ret = 0; // 记录最长子序列
 
-        int ret = 0;
+        // 遍历nums,以每个位置为起点找到所有递增子序列的最大值
         for (int i = 0; i < n; i++) {
-            ret = Math.max(dfs(i), ret); // 查找所有子序列的最大长度
+            ret = Math.max(dfs(i), ret); // 更新结果
         }
+
+        // 返回结果
         return ret;
     }
 
-    private int dfs(int pos) {
-        // 查看memo中是否存在结果
+    // dfs任务:找到以pos位置为起点的递增子序列长度的最大值
+    public int dfs (int pos) {
+        // 递归展开之前,先查看记忆数组
         if (memo[pos] != 0) {
             return memo[pos];
         }
 
-        // 查找以pos位置为起始的子序列的长度
-        int ret = 0;
-        for (int i = pos+1; i < n; i++) {
-            if (nums[i] > nums[pos]) {
-                ret = Math.max(dfs(i), ret);
+        int count = 0;
+        for (int k = pos+1; k < n; k++) {
+            if (nums[k] > nums[pos]) {
+                count = Math.max(dfs(k), count);
             }
         }
-        // 加上当前位置
-        ret++;
-        // 在返回之前将结果存到memo中
-        memo[pos] = ret;
-        return ret;
+        count++;
+
+        // 递归展开之后,先将结果存入记忆数组再返回
+        memo[pos] = count;
+        return count;
     }
 }
