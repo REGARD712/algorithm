@@ -1,44 +1,48 @@
 public class LongestIncreasingPath {
-    int[][] matrix;
     int m, n;
+    int[][] matrix;
     int[] dx = {0, 0, -1, 1};
     int[] dy = {-1, 1, 0, 0};
-    boolean[][] visit;
-    int[][] memo; // 备忘录
+    int[][] memo; // 记忆数组
 
     public int longestIncreasingPath(int[][] givenMatrix) {
-        matrix = givenMatrix; m = matrix.length; n = matrix[0].length;
-        visit = new boolean[m][n]; memo = new int[m][n];
-
+        // 初始化
+        matrix = givenMatrix;
+        m = matrix.length;
+        n = matrix[0].length;
+        memo = new int[m][n];
         int ret = 0;
+
+        // 以每一个位置为起点找出最长递增路径
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                // 以每一个数字为起点找出所有值
-                visit[i][j] = true;
-                ret = Math.max(dfs(i, j), ret);
-                visit[i][j] = false;
+                int count = dfs(i, j);     // dfs找到以[i,j]为起点的最长递增路径
+                ret = Math.max(count, ret);// 取所有找出的路径中的最大值
             }
         }
 
+        // 返回结果
         return ret;
     }
 
-    private int dfs(int row, int col) {
+    // dfs任务:找到以[row,col]为起点的最长递增路径
+    public int dfs (int row, int col) {
+        // 递归展开之前先查看记忆数组
         if (memo[row][col] != 0) {
             return memo[row][col];
         }
-        int ret = 0;
+
+        int count = 0;
+
         for (int k = 0; k < 4; k++) {
             int x = row + dx[k], y = col + dy[k];
-            if (x >= 0 && x < m && y >= 0 && y < n) {
-                if (!visit[x][y] && matrix[x][y] > matrix[row][col]) {
-                    visit[x][y] = true;
-                    ret = Math.max(dfs(x, y), ret);
-                    visit[x][y] = false;
-                }
+            if (x >= 0 && x < m && y >= 0 && y < n && matrix[x][y] > matrix[row][col]) {
+                count = Math.max(dfs(x, y), count);
             }
         }
-        memo[row][col] = ret + 1;
-        return ret + 1;
+
+        // 递归展开之后先将结果存入记忆数组再返回
+        memo[row][col] = count + 1;
+        return count + 1;
     }
 }
