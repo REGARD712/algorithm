@@ -1,8 +1,12 @@
 public class Tribonacci {
     // 优化了空间的版本，空间复杂度：O（1）
     public int tribonacci(int n) {
-        if (n == 0) return 0;
-        if (n == 1 || n == 2) return 1;
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1 || n == 2) {
+            return 1;
+        }
 
         // 利用滚动数组方法优化空间
         int a = 0, b = 1, c = 1, d = 0;
@@ -17,8 +21,12 @@ public class Tribonacci {
 
     // 时间复杂度：O（N）；空间复杂度：O（N）
     public int tribonacci1(int n) {
-        if (n == 0) return 0;
-        if (n == 1 || n == 2) return 1;
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1 || n == 2) {
+            return 1;
+        }
 
         // 1. 预处理dp表
         int[] dp = new int[n + 1];
