@@ -19,7 +19,7 @@ public class MinFallingPathSum {
 
         // 创建dp表:所有值初始化为正无穷大
         int[][] dp = new int[m+1][n+2];
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i <= m; i++) {
             dp[i][0] = dp[i][n+1] = Integer.MAX_VALUE;
         }
 
