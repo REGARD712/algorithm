@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * https://leetcode.cn/problems/minimum-falling-path-sum/
  *
@@ -20,9 +18,9 @@ public class MinFallingPathSum {
         int m = matrix.length, n = matrix[0].length;
 
         // 创建dp表:所有值初始化为正无穷大
-        int[][] dp = new int[m+2][n+2];
-        for (int[] x : dp) {
-            Arrays.fill(x, Integer.MAX_VALUE);
+        int[][] dp = new int[m+1][n+2];
+        for (int i = 1; i <= n; i++) {
+            dp[i][0] = dp[i][n+1] = Integer.MAX_VALUE;
         }
 
         // 初始化:将第0行初始化为0
