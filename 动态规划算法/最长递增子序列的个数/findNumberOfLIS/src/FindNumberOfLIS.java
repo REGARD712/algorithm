@@ -30,22 +30,18 @@ public class FindNumberOfLIS {
         Arrays.fill(dpCount, 1);
 
         // 从左往右填表
+        int max = dpLen[0], ans = 1;
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < i; j++) {
                 if (nums[j] < nums[i]) {
                     if (dpLen[j]+1 == dpLen[i]) {
                         dpCount[i] += dpCount[j];
                     } else if (dpLen[j]+1 > dpLen[i]) {
-                        dpLen[i] = dpLen[j]+1;
+                        dpLen[i] = dpLen[j] + 1;
                         dpCount[i] = dpCount[j];
                     }
                 }
             }
-        }
-
-        // 返回结果:小贪心策略(在数组中找出最大值出现的次数)
-        int max = dpLen[0], ans = 1;
-        for (int i = 1; i < n; i++) {
             if (dpLen[i] == max) {
                 ans += dpCount[i];
             } else if (dpLen[i] > max) {
@@ -53,6 +49,8 @@ public class FindNumberOfLIS {
                 ans = dpCount[i];
             }
         }
+
+        // 返回结果:小贪心策略(在数组中找出最大值出现的次数)
         return ans;
     }
 
